@@ -15,6 +15,8 @@
 		34454DEC27866A4D00E37485 /* MLB_Stats.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34454DEA27866A4D00E37485 /* MLB_Stats.xcdatamodeld */; };
 		34454DF72786920200E37485 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454DF62786920200E37485 /* MainView.swift */; };
 		34454DF92786920D00E37485 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454DF82786920D00E37485 /* SearchView.swift */; };
+		34454DFB27869CF100E37485 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454DFA27869CF100E37485 /* Network.swift */; };
+		34454DFE27869E3700E37485 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454DFD27869E3700E37485 /* SearchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		34454DEB27866A4D00E37485 /* MLB_Stats.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MLB_Stats.xcdatamodel; sourceTree = "<group>"; };
 		34454DF62786920200E37485 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		34454DF82786920D00E37485 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		34454DFA27869CF100E37485 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		34454DFD27869E3700E37485 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +94,9 @@
 		34454DF327866BD000E37485 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				34454DE827866A4D00E37485 /* Persistence.swift */,
-				34454DEA27866A4D00E37485 /* MLB_Stats.xcdatamodeld */,
+				34454DFC27869E2600E37485 /* Core Data */,
+				34454DFA27869CF100E37485 /* Network.swift */,
+				34454DFD27869E3700E37485 /* SearchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -101,6 +106,15 @@
 			children = (
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		34454DFC27869E2600E37485 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				34454DE827866A4D00E37485 /* Persistence.swift */,
+				34454DEA27866A4D00E37485 /* MLB_Stats.xcdatamodeld */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,8 +190,10 @@
 				34454DE927866A4D00E37485 /* Persistence.swift in Sources */,
 				34454DE227866A4B00E37485 /* ContentView.swift in Sources */,
 				34454DE027866A4B00E37485 /* MLB_StatsApp.swift in Sources */,
+				34454DFE27869E3700E37485 /* SearchModel.swift in Sources */,
 				34454DF72786920200E37485 /* MainView.swift in Sources */,
 				34454DF92786920D00E37485 /* SearchView.swift in Sources */,
+				34454DFB27869CF100E37485 /* Network.swift in Sources */,
 				34454DEC27866A4D00E37485 /* MLB_Stats.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
