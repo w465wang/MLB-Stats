@@ -22,6 +22,9 @@ struct MainView: View {
                     Text("Favourites")
                 }
         } //: TAB
+        .onAppear() {
+            UITabBar.appearance().backgroundColor = .secondarySystemBackground
+        }
     }
 }
 

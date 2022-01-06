@@ -19,7 +19,7 @@ struct SearchView: View {
     private func searchTask() {
         Task {
             do {
-                let results = try await getSearchResults(active: "Y", query: text)
+                let results = try await getSearchResults(query: text)
                 searchResults = results
             } catch {
                 print("Error", error)
@@ -54,17 +54,41 @@ struct SearchView: View {
                             .font(.system(size: 30, weight: .semibold, design: .rounded))
                     })
                 } //: HSTACK
+                .padding(.horizontal, 20)
                 
                 List {
-                    
-                }
-                .listStyle(InsetGroupedListStyle())
+                    ForEach(searchResults, id: \.self) { item in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name_display_first_last)
+                                    .font(.system(.headline))
+                                Text(item.team_full)
+                                    .font(.system(.footnote))
+                            } //: VSTACK
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                
+                            }, label: {
+                                Image(systemName: "heart")
+                            })
+                        } //: HSTACK
+                    } //: FOR
+                } //: LIST
                 .padding(.vertical, 0)
                 .frame(maxWidth: 640)
+                .listStyle(InsetGroupedListStyle())
             } //: VSTACK
+            .onAppear() {
+                UITableView.appearance().backgroundColor = .clear
+            }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
             .navigationBarTitle("Search Players", displayMode: .large)
-            .padding()
+            .padding(.vertical, 10)
+            .background(
+                backgroundGradient.ignoresSafeArea()
+            )
         } //: NAVIGATION
     }
 }
@@ -74,5 +98,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
+            .preferredColorScheme(.light)
     }
 }

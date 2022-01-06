@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-func getSearchResults(active: String, query: String) async throws -> [Player] {
+func getSearchResults(query: String) async throws -> [Player] {
     var newQuery = query
     if query.contains(" ") {
         newQuery = query.replacingOccurrences(of: " ", with: "%20")

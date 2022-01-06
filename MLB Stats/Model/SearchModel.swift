@@ -20,9 +20,9 @@ struct QueryResult: Codable {
     var row: [Player]?
 }
 
-struct Player: Codable {
+struct Player: Codable, Hashable {
     var position: String
-    var birth_country: String
     var name_display_first_last: String
     var team_full: String
+    var player_id: String
 }
