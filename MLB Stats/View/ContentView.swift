@@ -18,16 +18,20 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            VStack {
+                Spacer(minLength: 80)
+                
+                List {
+                    ForEach(items) { item in
+                        NavigationLink {
+                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        } label: {
+                            Text(item.timestamp!, formatter: itemFormatter)
+                        }
                     }
-                }
-                .onDelete(perform: deleteItems)
-            }
+                    .onDelete(perform: deleteItems)
+                } //: LIST
+            } //: VSTACK
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -37,9 +41,12 @@ struct ContentView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+            } //: TOOLBAR
+            .navigationBarTitle("Favourites", displayMode: .large)
+            .onAppear() {
+                UITableView.appearance().backgroundColor = .clear
             }
-            Text("Select an item")
-        }
+        } //: NAVIGATION
     }
 
     private func addItem() {
@@ -50,8 +57,6 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -65,8 +70,6 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
