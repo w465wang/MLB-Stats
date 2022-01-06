@@ -56,10 +56,10 @@
 			isa = PBXGroup;
 			children = (
 				34454DDF27866A4B00E37485 /* MLB_StatsApp.swift */,
-				34454DE127866A4B00E37485 /* ContentView.swift */,
+				34454DF227866BCB00E37485 /* View */,
+				34454DF327866BD000E37485 /* Model */,
+				34454DF427866BF600E37485 /* Extension */,
 				34454DE327866A4D00E37485 /* Assets.xcassets */,
-				34454DE827866A4D00E37485 /* Persistence.swift */,
-				34454DEA27866A4D00E37485 /* MLB_Stats.xcdatamodeld */,
 				34454DE527866A4D00E37485 /* Preview Content */,
 			);
 			path = "MLB Stats";
@@ -71,6 +71,30 @@
 				34454DE627866A4D00E37485 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		34454DF227866BCB00E37485 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				34454DE127866A4B00E37485 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		34454DF327866BD000E37485 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				34454DE827866A4D00E37485 /* Persistence.swift */,
+				34454DEA27866A4D00E37485 /* MLB_Stats.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		34454DF427866BF600E37485 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
