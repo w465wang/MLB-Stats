@@ -10,8 +10,9 @@ import SwiftUI
 struct SearchView: View {
     // MARK: - PROPERTIES
     
-    @State var text: String = ""
+    @Environment(\.managedObjectContext) private var viewContext
     
+    @State var text: String = ""
     @State private var searchResults: [Player] = []
     
     // MARK: - FUNCTIONS
@@ -68,11 +69,8 @@ struct SearchView: View {
                             
                             Spacer()
                             
-                            Button(action: {
-                                
-                            }, label: {
-                                Image(systemName: "heart")
-                            })
+                            NavigationLink(destination: PlayerView(player: item)) {
+                            }
                         } //: HSTACK
                     } //: FOR
                 } //: LIST

@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    // MARK: - PROPERTIES
+    
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -16,32 +18,27 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
+    // MARK: - BODY
+    
     var body: some View {
         NavigationView {
             VStack {
-                Spacer(minLength: 80)
+                Spacer(minLength: 40)
                 
                 List {
                     ForEach(items) { item in
-                        NavigationLink {
-                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                        } label: {
-                            Text(item.timestamp!, formatter: itemFormatter)
-                        }
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name!)
+                                    .font(.system(.headline))
+                                Text(item.team!)
+                                    .font(.system(.footnote))
+                            } //: VSTACK
+                        } //: HSTACK
                     }
                     .onDelete(perform: deleteItems)
                 } //: LIST
             } //: VSTACK
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            } //: TOOLBAR
             .navigationBarTitle("Favourites", displayMode: .large)
             .onAppear() {
                 UITableView.appearance().backgroundColor = .clear
@@ -51,18 +48,21 @@ struct ContentView: View {
             )
         } //: NAVIGATION
     }
+    
+    // MARK: - FUNCTIONS
+    
+    private func addItem(player: Player) {
+        let newItem = Item(context: viewContext)
+        newItem.name = player.name_display_first_last
+        newItem.playerID = player.player_id
+        newItem.position = player.position
+        newItem.team = player.team_full
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error \(nsError), \(nsError.userInfo)")
         }
     }
 
@@ -80,12 +80,7 @@ struct ContentView: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+// MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

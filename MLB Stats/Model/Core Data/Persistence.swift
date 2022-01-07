@@ -38,7 +38,9 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.name = "Mike Trout"
+            newItem.position = "CF"
+            newItem.team = "Los Angeles Angels"
         }
         do {
             try viewContext.save()
