@@ -45,27 +45,48 @@ struct PlayerView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Career Hitting")
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
-                    .padding(.horizontal, 20)
-                List {
-                    ForEach(0..<categories.count, id: \.self) { item in
-                        HStack {
-                            Text(categories[item])
-                            Spacer()
-                            Text(categoryStats[categories[item]] ?? "0")
-                        } //: HSTACK
-                    } //: FOR
-                } //: LIST
-                .frame(maxWidth: 640)
-                .listStyle(InsetGroupedListStyle())
+                HStack(spacing: 10) {
+                    Text(player.name_display_first_last)
+                        .font(.system(.largeTitle, design: .default))
+                        .fontWeight(.heavy)
+                        .padding(.leading, 4)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        
+                    }, label: {
+                        Image(systemName: "heart")
+                            .foregroundColor(.red)
+                    })
+                    
+                } //: HStack
+                .padding()
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Career Hitting")
+                        .font(.title)
+                        .fontWeight(.heavy)
+                        .padding(.horizontal, 20)
+                    List {
+                        ForEach(0..<categories.count, id: \.self) { item in
+                            HStack {
+                                Text(categories[item])
+                                Spacer()
+                                Text(categoryStats[categories[item]] ?? "0")
+                            } //: HSTACK
+                        } //: FOR
+                    } //: LIST
+                    .frame(maxWidth: 640)
+                    .listStyle(InsetGroupedListStyle())
+                }
             } //: VSTACK
             .onAppear {
                 UITableView.appearance().backgroundColor = .clear
                 hittingStatsTask()
             }
-            .navigationBarTitle(player.name_display_first_last)
+            .navigationBarTitle(player.name_display_first_last, displayMode: .large)
+            .navigationBarHidden(true)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
             .background(
                 backgroundGradient.ignoresSafeArea()
