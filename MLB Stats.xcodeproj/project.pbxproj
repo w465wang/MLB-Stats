@@ -19,6 +19,7 @@
 		34454DFE27869E3700E37485 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454DFD27869E3700E37485 /* SearchModel.swift */; };
 		34454E042787AFAC00E37485 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E032787AFAC00E37485 /* Constants.swift */; };
 		34454E072787CA7600E37485 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E062787CA7600E37485 /* PlayerView.swift */; };
+		34454E092788D8B700E37485 /* HIttingStatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E082788D8B700E37485 /* HIttingStatsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		34454DFD27869E3700E37485 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		34454E032787AFAC00E37485 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		34454E062787CA7600E37485 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		34454E082788D8B700E37485 /* HIttingStatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIttingStatsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				34454DFC27869E2600E37485 /* Core Data */,
 				34454DFA27869CF100E37485 /* Network.swift */,
 				34454DFD27869E3700E37485 /* SearchModel.swift */,
+				34454E082788D8B700E37485 /* HIttingStatsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				34454DE227866A4B00E37485 /* ContentView.swift in Sources */,
 				34454DE027866A4B00E37485 /* MLB_StatsApp.swift in Sources */,
 				34454E072787CA7600E37485 /* PlayerView.swift in Sources */,
+				34454E092788D8B700E37485 /* HIttingStatsModel.swift in Sources */,
 				34454DFE27869E3700E37485 /* SearchModel.swift in Sources */,
 				34454DF72786920200E37485 /* MainView.swift in Sources */,
 				34454DF92786920D00E37485 /* SearchView.swift in Sources */,

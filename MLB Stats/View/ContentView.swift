@@ -23,7 +23,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer(minLength: 40)
+                Spacer()
                 
                 List {
                     ForEach(items) { item in
