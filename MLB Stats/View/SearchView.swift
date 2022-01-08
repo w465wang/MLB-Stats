@@ -73,6 +73,8 @@ struct SearchView: View {
                                 
                             }
                         } //: HSTACK
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
                     } //: FOR
                 } //: LIST
                 .padding(.vertical, 0)

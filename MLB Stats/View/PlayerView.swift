@@ -90,7 +90,6 @@ struct PlayerView: View {
                     }, label: {
                         Image(systemName: isInFavourites ? "heart.fill" : "heart")
                             .foregroundColor(.red)
-                            .frame(width: 24, height: 24)
                     })
                         .onAppear {
                             let fetchRequest = Item.fetchRequest()
@@ -109,7 +108,7 @@ struct PlayerView: View {
                         }
                     
                 } //: HSTACK
-                .padding()
+                .padding(.horizontal, 15)
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Career Hitting")

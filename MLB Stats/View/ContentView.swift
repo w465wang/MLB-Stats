@@ -17,6 +17,19 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
+    
+    // MARK: - FUNCTIONS
+
+    private func deleteItem(item: NSManagedObject) {
+        viewContext.delete(item)
+        
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error \(nsError), \(nsError.userInfo)")
+        }
+    }
 
     // MARK: - BODY
     
@@ -34,34 +47,29 @@ struct ContentView: View {
                                 Text(item.team!)
                                     .font(.system(.footnote))
                             } //: VSTACK
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                deleteItem(item: item)
+                            }, label: {
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(.red)
+                            })
                         } //: HSTACK
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
                     } //: FOR
-                    .onDelete(perform: deleteItems)
                 } //: LIST
             } //: VSTACK
-            .navigationBarTitle("Favourites", displayMode: .large)
             .onAppear() {
                 UITableView.appearance().backgroundColor = .clear
             }
+            .navigationBarTitle("Favourites", displayMode: .large)
             .background(
                 backgroundGradient.ignoresSafeArea()
             )
         } //: NAVIGATION
-    }
-    
-    // MARK: - FUNCTIONS
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
 }
 
