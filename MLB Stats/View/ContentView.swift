@@ -50,21 +50,6 @@ struct ContentView: View {
     }
     
     // MARK: - FUNCTIONS
-    
-    private func addItem(player: Player) {
-        let newItem = Item(context: viewContext)
-        newItem.name = player.name_display_first_last
-        newItem.playerID = player.player_id
-        newItem.position = player.position
-        newItem.team = player.team_full
-
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            print("Error \(nsError), \(nsError.userInfo)")
-        }
-    }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {

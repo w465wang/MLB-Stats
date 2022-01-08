@@ -43,6 +43,38 @@ struct PlayerView: View {
         }
     }
     
+    private func addItem(player: Player) {
+        let newItem = Item(context: viewContext)
+        newItem.name = player.name_display_first_last
+        newItem.playerID = player.player_id
+        newItem.position = player.position
+        newItem.team = player.team_full
+
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    private func deleteItem(id: String) {
+        let fetchRequest = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "playerID == %@", id
+        )
+        
+        do {
+            let object = try viewContext.fetch(fetchRequest)
+            viewContext.delete(object.first!)
+            
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
     // MARK: - BODY
     
     var body: some View {
@@ -57,7 +89,13 @@ struct PlayerView: View {
                     Spacer()
                     
                     Button(action: {
+                        if isInFavourites {
+                            deleteItem(id: player.player_id)
+                        } else {
+                            addItem(player: player)
+                        }
                         
+                        isInFavourites.toggle()
                     }, label: {
                         Image(systemName: isInFavourites ? "heart.fill" : "heart")
                             .foregroundColor(.red)
@@ -65,7 +103,6 @@ struct PlayerView: View {
                     })
                         .onAppear {
                             let fetchRequest = Item.fetchRequest()
-
                             fetchRequest.predicate = NSPredicate(
                                 format: "playerID == %@", player.player_id
                             )
