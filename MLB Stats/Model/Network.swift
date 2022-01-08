@@ -10,44 +10,53 @@ import SwiftUI
 func getSearchResults(active: String, query: String) async throws -> [Player] {
     let newActive = active == "A" ? "" : "&active_sw='\(active)'"
     
-    var newQuery = query
-    if query.contains(" ") {
-        newQuery = query.replacingOccurrences(of: " ", with: "%20")
-    } else {
-        newQuery.append("%25")
+    var newQuery = query + "%25"
+    if newQuery.contains(" ") {
+        newQuery = newQuery.replacingOccurrences(of: " ", with: "%20")
     }
 
-    // TODO: Add active_sw parameter
     guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'\(newActive)&name_part='\(newQuery)'") else {
-        fatalError("Missing URL")
+        print("Missing URL")
+        return []
     }
+    print("testing", url)
     
     let urlRequest = URLRequest(url: url)
     let (data, response) = try await URLSession.shared.data(for: urlRequest)
     
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-        fatalError("Error while fetching data")
+        print("Error while fetching data")
+        return []
     }
     
-    let decodedSearch = try JSONDecoder().decode(SearchResult.self, from: data)
+    let decodedSearchCheck = try JSONDecoder().decode(SearchResultCheck.self, from: data)
     
-    if let row = decodedSearch.search_player_all.queryResults.row {
-        return row
+    if decodedSearchCheck.search_player_all.queryResults.totalSize == "1" {
+        let decodedSearchSingle = try JSONDecoder().decode(SearchResultSingle.self, from: data)
+        return [decodedSearchSingle.search_player_all.queryResults.row]
     } else {
-        return []
+        let decodedSearch = try JSONDecoder().decode(SearchResult.self, from: data)
+        
+        if let row = decodedSearch.search_player_all.queryResults.row {
+            return row
+        } else {
+            return []
+        }
     }
 }
 
 func getCareerHittingStats(gameType: String, playerID: String) async throws -> HittingStats? {
     guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id=%27mlb%27&game_type='\(gameType)'&player_id='\(playerID)'") else {
-        fatalError("Missing URL")
+        print("Missing URL")
+        return HittingStats()
     }
     
     let urlRequest = URLRequest(url: url)
     let (data, response) = try await URLSession.shared.data(for: urlRequest)
     
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-        fatalError("Error while fetching data")
+        print("Error while fetching data")
+        return HittingStats()
     }
     
     let decodedHittingStats = try JSONDecoder().decode(CareerHittingResult.self, from: data)
