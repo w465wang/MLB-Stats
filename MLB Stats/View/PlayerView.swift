@@ -14,33 +14,24 @@ struct PlayerView: View {
     
     var player: Player
     @State var isInFavourites: Bool = false
+    @State var hittingStats: [HittingStats] = [HittingStats()]
     @State var categoryStats: [String: String] = [:]
     var categories = ["G", "PA", "AB", "R", "H", "HR", "BA", "OBP", "SLG", "OPS", "TB"]
     
     // MARK: - FUNCTIONS
     
-    private func hittingStatsTask() {
-        Task {
-            do {
-                let results = try await getCareerHittingStats(gameType: "R", playerID: player.player_id)
-                
-                if let results = results {
-                    categoryStats["G"] = results.g
-                    categoryStats["PA"] = results.tpa
-                    categoryStats["AB"] = results.ab
-                    categoryStats["R"] = results.r
-                    categoryStats["H"] = results.h
-                    categoryStats["HR"] = results.hr
-                    categoryStats["BA"] = results.avg
-                    categoryStats["OBP"] = results.obp
-                    categoryStats["SLG"] = results.slg
-                    categoryStats["OPS"] = results.ops
-                    categoryStats["TB"] = results.tb
-                }
-            } catch {
-                print("Error", error)
-            }
-        }
+    private func updateCategoryStats() {
+        categoryStats["G"] = self.hittingStats[0].g
+        categoryStats["PA"] = self.hittingStats[0].tpa
+        categoryStats["AB"] = self.hittingStats[0].ab
+        categoryStats["R"] = self.hittingStats[0].r
+        categoryStats["H"] = self.hittingStats[0].h
+        categoryStats["HR"] = self.hittingStats[0].hr
+        categoryStats["BA"] = self.hittingStats[0].avg
+        categoryStats["OBP"] = self.hittingStats[0].obp
+        categoryStats["SLG"] = self.hittingStats[0].slg
+        categoryStats["OPS"] = self.hittingStats[0].ops
+        categoryStats["TB"] = self.hittingStats[0].tb
     }
     
     private func addItem(player: Player) {
@@ -117,7 +108,7 @@ struct PlayerView: View {
                             }
                         }
                     
-                } //: HStack
+                } //: HSTACK
                 .padding()
                 
                 VStack(alignment: .leading, spacing: 0) {
@@ -126,21 +117,33 @@ struct PlayerView: View {
                         .fontWeight(.heavy)
                         .padding(.horizontal, 20)
                     List {
-                        ForEach(0..<categories.count, id: \.self) { item in
+                        ForEach(0..<categories.count, id: \.self) { ind in
                             HStack {
-                                Text(categories[item])
+                                Text(categories[ind])
+                                
                                 Spacer()
-                                Text(categoryStats[categories[item]] ?? "0")
+                                
+                                Text(categoryStats[categories[ind]] ?? "0")
                             } //: HSTACK
                         } //: FOR
                     } //: LIST
                     .frame(maxWidth: 640)
                     .listStyle(InsetGroupedListStyle())
-                }
+                } //: VSTACK
             } //: VSTACK
             .onAppear {
                 UITableView.appearance().backgroundColor = .clear
-                hittingStatsTask()
+            }
+            .task {
+                do {
+                    if let stats = try await getCareerHittingStats(gameType: "R", playerID: player.player_id) {
+                        hittingStats = [stats]
+                        
+                        updateCategoryStats()
+                    }
+                } catch {
+                    print("Error", error)
+                }
             }
             .navigationBarTitle(player.name_display_first_last, displayMode: .large)
             .navigationBarHidden(true)

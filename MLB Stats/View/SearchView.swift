@@ -70,6 +70,7 @@ struct SearchView: View {
                             Spacer()
                             
                             NavigationLink(destination: PlayerView(player: item)) {
+                                
                             }
                         } //: HSTACK
                     } //: FOR

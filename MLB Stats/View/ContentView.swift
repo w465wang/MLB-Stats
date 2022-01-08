@@ -35,7 +35,7 @@ struct ContentView: View {
                                     .font(.system(.footnote))
                             } //: VSTACK
                         } //: HSTACK
-                    }
+                    } //: FOR
                     .onDelete(perform: deleteItems)
                 } //: LIST
             } //: VSTACK
