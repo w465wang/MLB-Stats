@@ -55,6 +55,7 @@ struct ContentView: View {
                             }, label: {
                                 Image(systemName: "heart.fill")
                                     .foregroundColor(.red)
+                                    .font(.system(size: 20))
                             })
                         } //: HSTACK
                         .padding(.horizontal, 10)

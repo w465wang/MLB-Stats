@@ -71,7 +71,7 @@ struct PlayerView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                HStack(spacing: 10) {
+                HStack() {
                     Text(player.name_display_first_last)
                         .font(.system(.largeTitle, design: .default))
                         .fontWeight(.heavy)
@@ -90,6 +90,7 @@ struct PlayerView: View {
                     }, label: {
                         Image(systemName: isInFavourites ? "heart.fill" : "heart")
                             .foregroundColor(.red)
+                            .font(.system(size: 24))
                     })
                         .onAppear {
                             let fetchRequest = Item.fetchRequest()
@@ -106,7 +107,6 @@ struct PlayerView: View {
                                 print("Error \(nsError), \(nsError.userInfo)")
                             }
                         }
-                    
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 

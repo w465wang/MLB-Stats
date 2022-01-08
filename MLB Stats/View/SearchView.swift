@@ -33,6 +33,24 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             VStack {
+                HStack() {
+                    Text("Search")
+                        .font(.system(.largeTitle, design: .default))
+                        .fontWeight(.heavy)
+                        .padding(.leading, 4)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        
+                    }, label: {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 24))
+                    })
+                } //: HSTACK
+                .padding(.horizontal, 15)
+                
                 HStack {
                     TextField("e.g. Mike Trout", text: $text)
                         .font(.system(size: 24, weight: .bold, design: .rounded))
@@ -52,7 +70,8 @@ struct SearchView: View {
                         searchTask()
                     }, label: {
                         Image(systemName: "magnifyingglass")
-                            .font(.system(size: 30, weight: .semibold, design: .rounded))
+                            .foregroundColor(.primary)
+                            .font(.system(size: 24, weight: .semibold))
                     })
                 } //: HSTACK
                 .padding(.horizontal, 20)
@@ -85,11 +104,12 @@ struct SearchView: View {
                 UITableView.appearance().backgroundColor = .clear
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-            .navigationBarTitle("Search Players", displayMode: .large)
             .padding(.vertical, 10)
             .background(
                 backgroundGradient.ignoresSafeArea()
             )
+            .navigationBarTitle("Search Players", displayMode: .large)
+            .navigationBarHidden(true)
         } //: NAVIGATION
     }
 }
