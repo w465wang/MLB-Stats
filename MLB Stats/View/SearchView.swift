@@ -14,13 +14,14 @@ struct SearchView: View {
     
     @State var text: String = ""
     @State private var searchResults: [Player] = []
+    @State private var selection: String = "Y"
     
     // MARK: - FUNCTIONS
     
     private func searchTask() {
         Task {
             do {
-                let results = try await getSearchResults(query: text)
+                let results = try await getSearchResults(active: selection, query: text)
                 searchResults = results
             } catch {
                 print("Error", error)
@@ -41,13 +42,20 @@ struct SearchView: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }, label: {
+                    Menu {
+                        Picker(selection: $selection, label: Text("Players")) {
+                            Text("Active").tag("Y")
+                            Text("Inactive/Historic").tag("N")
+                            Text("All").tag("A")
+                        }
+                        .onChange(of: selection) { new in
+                            searchTask()
+                        }
+                    } label: {
                         Image(systemName: "gearshape.fill")
                             .foregroundColor(.primary)
                             .font(.system(size: 24))
-                    })
+                    }
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 
