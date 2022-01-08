@@ -10,7 +10,10 @@ import SwiftUI
 struct PlayerView: View {
     // MARK: - PROPERTIES
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
     var player: Player
+    @State var isInFavourites: Bool = false
     @State var categoryStats: [String: String] = [:]
     var categories = ["G", "PA", "AB", "R", "H", "HR", "BA", "OBP", "SLG", "OPS", "TB"]
     
@@ -56,9 +59,26 @@ struct PlayerView: View {
                     Button(action: {
                         
                     }, label: {
-                        Image(systemName: "heart")
+                        Image(systemName: isInFavourites ? "heart.fill" : "heart")
                             .foregroundColor(.red)
+                            .frame(width: 24, height: 24)
                     })
+                        .onAppear {
+                            let fetchRequest = Item.fetchRequest()
+
+                            fetchRequest.predicate = NSPredicate(
+                                format: "playerID == %@", player.player_id
+                            )
+                            
+                            do {
+                                let object = try viewContext.fetch(fetchRequest)
+                                
+                                isInFavourites = object.count > 0
+                            } catch {
+                                let nsError = error as NSError
+                                print("Error \(nsError), \(nsError.userInfo)")
+                            }
+                        }
                     
                 } //: HStack
                 .padding()
@@ -102,5 +122,6 @@ struct PlayerView_Previews: PreviewProvider {
         PlayerView(
             player: Player(position: "CF", name_display_first_last: "Mike Trout", team_full: "Los Angeles Angels", player_id: "545361")
         )
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
