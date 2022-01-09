@@ -88,18 +88,14 @@ struct SearchView: View {
                 List {
                     ForEach(searchResults, id: \.self) { item in
                         HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name_display_first_last)
-                                    .font(.system(.headline))
-                                Text(item.team_full)
-                                    .font(.system(.footnote))
-                            } //: VSTACK
-                            
-                            Spacer()
-                            
                             NavigationLink(destination: PlayerView(player: item)) {
-                                
-                            }
+                                VStack(alignment: .leading) {
+                                    Text(item.name_display_first_last)
+                                        .font(.system(.headline))
+                                    Text(item.team_full)
+                                        .font(.system(.footnote))
+                                } //: VSTACK
+                            } //: NAV LINK
                         } //: HSTACK
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
