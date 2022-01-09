@@ -12,16 +12,17 @@ struct SearchView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
+    @AppStorage("searchSetting", store: .standard) var searchSetting = "Y"
+    
     @State var text: String = ""
     @State private var searchResults: [Player] = []
-    @State private var selection: String = "Y"
     
     // MARK: - FUNCTIONS
     
     private func searchTask() {
         Task {
             do {
-                let results = try await getSearchResults(active: selection, query: text)
+                let results = try await getSearchResults(active: searchSetting, query: text)
                 searchResults = results
             } catch {
                 print("Error", error)
@@ -43,12 +44,12 @@ struct SearchView: View {
                     Spacer()
                     
                     Menu {
-                        Picker(selection: $selection, label: Text("Players")) {
-                            Text("Active").tag("Y")
-                            Text("Inactive/Historic").tag("N")
-                            Text("All").tag("A")
+                        Picker(selection: $searchSetting, label: Text("Players")) {
+                            Text("Active Players").tag("Y")
+                            Text("Inactive/Historic Players").tag("N")
+                            Text("All Players").tag("A")
                         }
-                        .onChange(of: selection) { new in
+                        .onChange(of: searchSetting) { new in
                             searchTask()
                         }
                     } label: {
