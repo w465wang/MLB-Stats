@@ -34,30 +34,12 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                HStack() {
-                    Text("Search")
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Search Players")
                         .font(.system(.largeTitle, design: .default))
                         .fontWeight(.heavy)
                         .padding(.leading, 4)
-                    
-                    Spacer()
-                    
-                    Menu {
-                        Text("Search Players")
-                        Picker(selection: $searchSetting, label: Text("Players")) {
-                            Text("Active").tag("Y")
-                            Text("Inactive/Historic").tag("N")
-                            Text("All").tag("A")
-                        }
-                        .onChange(of: searchSetting) { new in
-                            searchTask()
-                        }
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundColor(.primary)
-                            .font(.system(size: 24))
-                    }
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 
@@ -85,6 +67,18 @@ struct SearchView: View {
                     })
                 } //: HSTACK
                 .padding(.horizontal, 20)
+                
+                Picker(selection: $searchSetting, label: Text("Players")) {
+                    Text("Active").tag("Y")
+                    Text("Inactive/Historic").tag("N")
+                    Text("All").tag("A")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .onChange(of: searchSetting) { new in
+                    searchTask()
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 5)
                 
                 List {
                     ForEach(searchResults, id: \.self) { item in

@@ -39,7 +39,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack() {
+                HStack {
                     Text("Favourites")
                         .font(.system(.largeTitle, design: .default))
                         .fontWeight(.heavy)
