@@ -44,10 +44,11 @@ struct SearchView: View {
                     Spacer()
                     
                     Menu {
+                        Text("Search Players")
                         Picker(selection: $searchSetting, label: Text("Players")) {
-                            Text("Active Players").tag("Y")
-                            Text("Inactive/Historic Players").tag("N")
-                            Text("All Players").tag("A")
+                            Text("Active").tag("Y")
+                            Text("Inactive/Historic").tag("N")
+                            Text("All").tag("A")
                         }
                         .onChange(of: searchSetting) { new in
                             searchTask()
