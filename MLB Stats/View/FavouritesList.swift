@@ -55,12 +55,18 @@ struct FavouritesList: View {
         List {
             ForEach(items) { item in
                 HStack {
-                    VStack(alignment: .leading) {
-                        Text(item.name!)
-                            .font(.system(.headline))
-                        Text(item.team!)
-                            .font(.system(.footnote))
-                    } //: VSTACK
+                    ZStack(alignment: .leading) {
+                        VStack(alignment: .leading) {
+                            Text(item.name!)
+                                .font(.system(.headline))
+                            Text(item.team!)
+                                .font(.system(.footnote))
+                        } //: VSTACK
+                        
+                        NavigationLink(destination: PlayerView(player: Player(position: item.position!, name_display_first_last: item.name!, name_display_roster: item.lastName!, team_full: item.team!, player_id: item.playerID!))) {
+                            EmptyView()
+                        }
+                    } //: ZSTACK
                     
                     Spacer()
                     
@@ -71,6 +77,7 @@ struct FavouritesList: View {
                             .foregroundColor(.red)
                             .font(.system(size: 20))
                     })
+                        .buttonStyle(PlainButtonStyle())
                 } //: HSTACK
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)

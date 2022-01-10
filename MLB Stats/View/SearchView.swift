@@ -45,7 +45,7 @@ struct SearchView: View {
                 
                 HStack {
                     TextField("e.g. Mike Trout", text: $text)
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .font(.system(size: 24, weight: .bold))
                         .padding()
                         .background(
                             Color(.secondarySystemBackground)
