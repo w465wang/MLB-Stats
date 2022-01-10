@@ -14,6 +14,7 @@ struct PlayerView: View {
     
     var player: Player
     @State var isInFavourites: Bool = false
+    @State var isExpandedCareer: Bool = false
     @State var hittingStats: [HittingStats] = [HittingStats()]
     @State var categoryStats: [String: String] = [:]
     var categories = ["G", "PA", "AB", "R", "H", "HR", "BA", "OBP", "SLG", "OPS", "TB"]
@@ -112,23 +113,36 @@ struct PlayerView: View {
                 .padding(.horizontal, 15)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Career Hitting")
+                    Text("Hitting Statistics")
                         .font(.title)
                         .fontWeight(.heavy)
                         .padding(.horizontal, 20)
-                    List {
-                        ForEach(0..<categories.count, id: \.self) { ind in
-                            HStack {
-                                Text(categories[ind])
+                    
+                    GroupBox() {
+                        DisclosureGroup(isExpanded: $isExpandedCareer) {
+                            ForEach(0..<categories.count, id: \.self) { ind in
+                                Divider().padding(.vertical, 2)
                                 
-                                Spacer()
-                                
-                                Text(categoryStats[categories[ind]] ?? "0")
-                            } //: HSTACK
-                        } //: FOR
-                    } //: LIST
-                    .frame(maxWidth: 640)
-                    .listStyle(InsetGroupedListStyle())
+                                HStack {
+                                    Text(categories[ind])
+                                    
+                                    Spacer()
+                                    
+                                    Text(categoryStats[categories[ind]] ?? "0")
+                                } //: HSTACK
+                            } //: FOR
+                        } label: {
+                            Text("Career Hitting")
+                                .foregroundColor(.primary)
+                                .font(.system(size: 20))
+                                .fontWeight(.medium)
+                        } //: DISCLOSURE GROUP
+                        .onChange(of: isExpandedCareer) { _ in
+                            updateCategoryStats()
+                        }
+                    } //: BOX
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 10)
                 } //: VSTACK
             } //: VSTACK
             .onAppear {
