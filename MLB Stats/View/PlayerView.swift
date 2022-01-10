@@ -35,6 +35,22 @@ struct PlayerView: View {
         categoryStats["TB"] = self.hittingStats[0].tb
     }
     
+    private func checkFavourites() {
+        let fetchRequest = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "playerID == %@", player.player_id
+        )
+        
+        do {
+            let object = try viewContext.fetch(fetchRequest)
+            
+            isInFavourites = object.count > 0
+        } catch {
+            let nsError = error as NSError
+            print("Error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
     private func addItem(player: Player) {
         let newItem = Item(context: viewContext)
         newItem.name = player.name_display_first_last
@@ -95,19 +111,7 @@ struct PlayerView: View {
                             .font(.system(size: 24))
                     })
                         .onAppear {
-                            let fetchRequest = Item.fetchRequest()
-                            fetchRequest.predicate = NSPredicate(
-                                format: "playerID == %@", player.player_id
-                            )
-                            
-                            do {
-                                let object = try viewContext.fetch(fetchRequest)
-                                
-                                isInFavourites = object.count > 0
-                            } catch {
-                                let nsError = error as NSError
-                                print("Error \(nsError), \(nsError.userInfo)")
-                            }
+                            checkFavourites()
                         }
                 } //: HSTACK
                 .padding(.horizontal, 15)

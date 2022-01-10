@@ -19,7 +19,6 @@ func getSearchResults(active: String, query: String) async throws -> [Player] {
         print("Missing URL")
         return []
     }
-    print("testing", url)
     
     let urlRequest = URLRequest(url: url)
     let (data, response) = try await URLSession.shared.data(for: urlRequest)
