@@ -16,16 +16,21 @@ struct FavouritesList: View {
     
     // MARK: - INIT
     
-    init(filterValue: String) {
-        let sortDesriptors = [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)]
+    init(sortValue: String, filterValue: String) {
+        var sortDescriptors = [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)]
+        if sortValue == "name" {
+            sortDescriptors = [NSSortDescriptor(keyPath: \Item.lastName, ascending: true)]
+        } else if sortValue == "team" {
+            sortDescriptors = [NSSortDescriptor(keyPath: \Item.team, ascending: true)]
+        }
         
         if filterValue == "none" {
             _items = FetchRequest<Item>(
-                sortDescriptors: sortDesriptors
+                sortDescriptors: sortDescriptors
             )
         } else {
             _items = FetchRequest<Item>(
-                sortDescriptors: sortDesriptors,
+                sortDescriptors: sortDescriptors,
                 predicate: NSPredicate(format: "team == %@", filterValue)
             )
         }
@@ -78,6 +83,6 @@ struct FavouritesList: View {
 
 struct FavouritesList_Previews: PreviewProvider {
     static var previews: some View {
-        FavouritesList(filterValue: "Los Angeles Angels")
+        FavouritesList(sortValue: "recent", filterValue: "Los Angeles Angels")
     }
 }

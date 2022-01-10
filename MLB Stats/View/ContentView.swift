@@ -33,7 +33,7 @@ struct ContentView: View {
                         Picker(selection: $sortValue, label: Text("sort")) {
                             Text("Recently Added").tag("recent")
                             Text("Name").tag("name")
-                            Text("Position").tag("position")
+                            Text("Team").tag("team")
                         }
                     } label: {
                         Image(systemName: sortValue == "recent" ? "arrow.up.arrow.down.circle" : "arrow.up.arrow.down.circle.fill")
@@ -60,7 +60,7 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                FavouritesList(filterValue: filterValue)
+                FavouritesList(sortValue: sortValue, filterValue: filterValue)
             } //: VSTACK
             .onAppear() {
                 UITableView.appearance().backgroundColor = .clear

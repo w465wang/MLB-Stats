@@ -24,6 +24,7 @@ struct QueryResult: Codable {
 struct Player: Codable, Hashable {
     var position: String
     var name_display_first_last: String
+    var name_display_roster: String
     var team_full: String
     var player_id: String
 }

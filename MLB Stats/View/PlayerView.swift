@@ -37,6 +37,7 @@ struct PlayerView: View {
     private func addItem(player: Player) {
         let newItem = Item(context: viewContext)
         newItem.name = player.name_display_first_last
+        newItem.lastName = player.name_display_roster
         newItem.playerID = player.player_id
         newItem.position = player.position
         newItem.team = player.team_full
@@ -159,7 +160,7 @@ struct PlayerView: View {
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         PlayerView(
-            player: Player(position: "CF", name_display_first_last: "Mike Trout", team_full: "Los Angeles Angels", player_id: "545361")
+            player: Player(position: "CF", name_display_first_last: "Mike Trout", name_display_roster: "Trout", team_full: "Los Angeles Angels", player_id: "545361")
         )
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
