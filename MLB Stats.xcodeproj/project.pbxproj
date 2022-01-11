@@ -21,6 +21,7 @@
 		34454E072787CA7600E37485 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E062787CA7600E37485 /* PlayerView.swift */; };
 		34454E092788D8B700E37485 /* HIttingStatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E082788D8B700E37485 /* HIttingStatsModel.swift */; };
 		34454E0D278B804500E37485 /* FavouritesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E0C278B804500E37485 /* FavouritesList.swift */; };
+		34454E10278CFD6300E37485 /* PlayerStatsBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E0F278CFD6300E37485 /* PlayerStatsBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		34454E062787CA7600E37485 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		34454E082788D8B700E37485 /* HIttingStatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIttingStatsModel.swift; sourceTree = "<group>"; };
 		34454E0C278B804500E37485 /* FavouritesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesList.swift; sourceTree = "<group>"; };
+		34454E0F278CFD6300E37485 /* PlayerStatsBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				34454E0E278CE81600E37485 /* Favourites */,
 				34454DF82786920D00E37485 /* SearchView.swift */,
 				34454E062787CA7600E37485 /* PlayerView.swift */,
+				34454E0F278CFD6300E37485 /* PlayerStatsBox.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34454DE927866A4D00E37485 /* Persistence.swift in Sources */,
+				34454E10278CFD6300E37485 /* PlayerStatsBox.swift in Sources */,
 				34454DE227866A4B00E37485 /* ContentView.swift in Sources */,
 				34454DE027866A4B00E37485 /* MLB_StatsApp.swift in Sources */,
 				34454E0D278B804500E37485 /* FavouritesList.swift in Sources */,

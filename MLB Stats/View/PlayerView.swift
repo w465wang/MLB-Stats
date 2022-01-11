@@ -122,46 +122,11 @@ struct PlayerView: View {
                         .fontWeight(.heavy)
                         .padding(.horizontal, 20)
                     
-                    GroupBox() {
-                        DisclosureGroup(isExpanded: $isExpandedCareer) {
-                            ForEach(0..<categories.count, id: \.self) { ind in
-                                Divider().padding(.vertical, 2)
-                                
-                                HStack {
-                                    Text(categories[ind])
-                                    
-                                    Spacer()
-                                    
-                                    Text(categoryStats[categories[ind]] ?? "0")
-                                } //: HSTACK
-                            } //: FOR
-                        } label: {
-                            Text("Career Hitting")
-                                .foregroundColor(.primary)
-                                .font(.system(size: 20))
-                                .fontWeight(.medium)
-                        } //: DISCLOSURE GROUP
-                        .onChange(of: isExpandedCareer) { _ in
-                            updateCategoryStats()
-                        }
-                    } //: BOX
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 10)
+                    PlayerStatsBox(playerID: player.player_id, title: "Career Regular Season", gameType: "R")
                 } //: VSTACK
             } //: VSTACK
             .onAppear {
                 UITableView.appearance().backgroundColor = .clear
-            }
-            .task {
-                do {
-                    if let stats = try await getCareerHittingStats(gameType: "R", playerID: player.player_id) {
-                        hittingStats = [stats]
-                        
-                        updateCategoryStats()
-                    }
-                } catch {
-                    print("Error", error)
-                }
             }
             .navigationBarTitle(player.name_display_first_last, displayMode: .large)
             .navigationBarHidden(true)
