@@ -116,14 +116,21 @@ struct PlayerView: View {
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Hitting Statistics")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                        .padding(.horizontal, 20)
-                    
-                    PlayerStatsBox(playerID: player.player_id, title: "Career Regular Season", gameType: "R")
-                } //: VSTACK
+                
+                ScrollView() {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Hitting Statistics")
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .padding(.horizontal, 20)
+                        
+                        PlayerStatsBox(playerID: player.player_id, title: "Career Regular Season", gameType: "R")
+                        PlayerStatsBox(playerID: player.player_id, title: "Career Wild Card", gameType: "F")
+                        PlayerStatsBox(playerID: player.player_id, title: "Career Division Series", gameType: "D")
+                        PlayerStatsBox(playerID: player.player_id, title: "Career Championship Series", gameType: "L")
+                        PlayerStatsBox(playerID: player.player_id, title: "Career World Series", gameType: "W")
+                    } //: VSTACK
+                } //: SCROLLVIEW
             } //: VSTACK
             .onAppear {
                 UITableView.appearance().backgroundColor = .clear
@@ -143,7 +150,7 @@ struct PlayerView: View {
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         PlayerView(
-            player: Player(position: "CF", name_display_first_last: "Mike Trout", name_display_roster: "Trout", team_full: "Los Angeles Angels", player_id: "545361")
+            player: Player(position: "RF", name_display_first_last: "Randy Arozarena", name_display_roster: "Arozarena", team_full: "Tampa Bay Rays", player_id: "668227")
         )
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }

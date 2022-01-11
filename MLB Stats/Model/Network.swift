@@ -47,7 +47,7 @@ func getSearchResults(active: String, query: String) async throws -> [Player] {
 func getCareerHittingStats(gameType: String, playerID: String) async throws -> HittingStats? {
     guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id=%27mlb%27&game_type='\(gameType)'&player_id='\(playerID)'") else {
         print("Missing URL")
-        return HittingStats()
+        return nil
     }
     
     let urlRequest = URLRequest(url: url)
@@ -55,7 +55,7 @@ func getCareerHittingStats(gameType: String, playerID: String) async throws -> H
     
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
         print("Error while fetching data")
-        return HittingStats()
+        return nil
     }
     
     let decodedHittingStats = try JSONDecoder().decode(CareerHittingResult.self, from: data)
