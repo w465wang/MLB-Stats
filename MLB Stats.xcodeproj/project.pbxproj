@@ -23,6 +23,7 @@
 		34454E0D278B804500E37485 /* FavouritesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E0C278B804500E37485 /* FavouritesList.swift */; };
 		34454E10278CFD6300E37485 /* PlayerStatsBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E0F278CFD6300E37485 /* PlayerStatsBox.swift */; };
 		34454E142792042C00E37485 /* LeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E132792042C00E37485 /* LeaderView.swift */; };
+		34454E162792083B00E37485 /* LeagueLeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34454E152792083B00E37485 /* LeagueLeaderModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		34454E0C278B804500E37485 /* FavouritesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesList.swift; sourceTree = "<group>"; };
 		34454E0F278CFD6300E37485 /* PlayerStatsBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsBox.swift; sourceTree = "<group>"; };
 		34454E132792042C00E37485 /* LeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderView.swift; sourceTree = "<group>"; };
+		34454E152792083B00E37485 /* LeagueLeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueLeaderModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				34454DFA27869CF100E37485 /* Network.swift */,
 				34454DFD27869E3700E37485 /* SearchModel.swift */,
 				34454E082788D8B700E37485 /* HIttingStatsModel.swift */,
+				34454E152792083B00E37485 /* LeagueLeaderModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				34454E072787CA7600E37485 /* PlayerView.swift in Sources */,
 				34454E092788D8B700E37485 /* HIttingStatsModel.swift in Sources */,
 				34454DFE27869E3700E37485 /* SearchModel.swift in Sources */,
+				34454E162792083B00E37485 /* LeagueLeaderModel.swift in Sources */,
 				34454DF72786920200E37485 /* MainView.swift in Sources */,
 				34454DF92786920D00E37485 /* SearchView.swift in Sources */,
 				34454DFB27869CF100E37485 /* Network.swift in Sources */,

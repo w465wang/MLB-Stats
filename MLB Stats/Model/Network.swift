@@ -45,7 +45,7 @@ func getSearchResults(active: String, query: String) async throws -> [Player] {
 }
 
 func getCareerHittingStats(gameType: String, playerID: String) async throws -> HittingStats? {
-    guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id=%27mlb%27&game_type='\(gameType)'&player_id='\(playerID)'") else {
+    guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id='mlb'&game_type='\(gameType)'&player_id='\(playerID)'") else {
         print("Missing URL")
         return nil
     }
@@ -62,3 +62,23 @@ func getCareerHittingStats(gameType: String, playerID: String) async throws -> H
     
     return decodedHittingStats.sport_career_hitting.queryResults.row
 }
+
+func getLeagueLeaders(year: String, stat: String) async throws -> [Leader] {
+    guard let url = URL(string: "https://lookup-service-prod.mlb.com/json/named.leader_hitting_repeater.bam?sport_code='mlb'&results=5&game_type='R'&season='\(year)'&sort_column='\(stat)'") else {
+        print("Missing URL")
+        return []
+    }
+    
+    let urlRequest = URLRequest(url: url)
+    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    
+    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+        print("Error while fetching data")
+        return []
+    }
+    
+    let decodedHittingStats = try JSONDecoder().decode(LeagueLeaders.self, from: data)
+    
+    return decodedHittingStats.leader_hitting_repeater.leader_hitting_mux.queryResults.row
+}
+
