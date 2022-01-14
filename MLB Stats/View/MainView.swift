@@ -16,6 +16,12 @@ struct MainView: View {
                     Text("Search")
                 }
             
+            LeaderView()
+                .tabItem {
+                    Image(systemName: "chart.bar.fill")
+                    Text("Leaders")
+                }
+            
             ContentView()
                 .tabItem {
                     Image(systemName: "heart")
