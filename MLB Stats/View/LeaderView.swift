@@ -13,7 +13,20 @@ struct LeaderView: View {
     @AppStorage("leaderYear", store: .standard) var leaderYear = "2021"
     @AppStorage("leaderStat", store: .standard) var leaderStat = "hr"
     
-    @State var leaderResults: [Leader] = []
+    @State private var leaderResults: [Leader] = [Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: "")]
+    
+    // MARK: - FUNCTIONS
+    
+    private func leaderTask() {
+        Task {
+            do {
+                let results = try await getLeagueLeaders(year: leaderYear, stat: leaderStat)
+                leaderResults = results
+            } catch {
+                print("Error", error)
+            }
+        }
+    }
     
     // MARK: - BODY
     var body: some View {
@@ -24,6 +37,27 @@ struct LeaderView: View {
                         .font(.system(.largeTitle, design: .default))
                         .fontWeight(.heavy)
                         .padding(.leading, 4)
+                } //: HSTACK
+                .padding(.horizontal, 15)
+                
+                HStack {
+                    TextField(leaderYear, text: $leaderYear)
+                        .font(.system(size: 20, weight: .bold))
+                        .padding()
+                        .background(
+                            Color(.secondarySystemBackground)
+                        )
+                        .cornerRadius(10)
+                        .frame(maxWidth: 640)
+                        .onSubmit {
+                            let filtered = leaderYear.filter {
+                                "0123456789".contains($0)
+                            }
+                            
+                            if filtered == leaderYear {
+                                leaderTask()
+                            }
+                        }
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 
@@ -60,12 +94,7 @@ struct LeaderView: View {
             )
             .navigationBarHidden(true)
             .task {
-                do {
-                    let results = try await getLeagueLeaders(year: leaderYear, stat: leaderStat)
-                    leaderResults = results
-                } catch {
-                    print("Error", error)
-                }
+                leaderTask()
             }
         } //: NAVIGATION
     }
