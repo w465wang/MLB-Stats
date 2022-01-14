@@ -28,6 +28,16 @@ struct LeaderView: View {
         }
     }
     
+    private func getRank(rank: Int) -> String {
+        if rank > 0 {
+            if leaderResults[rank].hr == leaderResults[rank - 1].hr {
+                return getRank(rank: rank - 1)
+            }
+        }
+        
+        return "\(rank + 1)."
+    }
+    
     // MARK: - BODY
     var body: some View {
         NavigationView {
@@ -62,21 +72,21 @@ struct LeaderView: View {
                 .padding(.horizontal, 15)
                 
                 List {
-                    ForEach(0..<leaderResults.count, id: \.self) { ind in
+                    ForEach(0..<leaderResults.count, id: \.self) { rank in
                         HStack {
-                            Text("\(ind + 1).")
+                            Text(getRank(rank: rank))
                                 .font(.system(.headline))
                             
                             VStack(alignment: .leading) {
-                                Text(leaderResults[ind].name_display_first_last)
+                                Text(leaderResults[rank].name_display_first_last)
                                     .font(.system(.headline))
-                                Text(leaderResults[ind].team_name)
+                                Text(leaderResults[rank].team_name)
                                     .font(.system(.footnote))
                             } //: VSTACK
                             
                             Spacer()
                             
-                            Text(leaderResults[ind].hr)
+                            Text(leaderResults[rank].hr)
                                 .font(.system(.headline))
                         } //: HSTACK
                         .padding(.horizontal, 10)
