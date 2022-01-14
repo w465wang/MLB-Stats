@@ -13,7 +13,7 @@ struct LeaderView: View {
     @AppStorage("leaderYear", store: .standard) var leaderYear = "2021"
     @AppStorage("leaderStat", store: .standard) var leaderStat = "hr"
     
-    @State private var leaderResults: [Leader] = [Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: ""), Leader(name_display_first_last: "", hr: "0", team_name: "")]
+    @State private var leaderResults: [Leader] = []
     
     // MARK: - FUNCTIONS
     
@@ -77,12 +77,18 @@ struct LeaderView: View {
                             Text(getRank(rank: rank))
                                 .font(.system(.headline))
                             
-                            VStack(alignment: .leading) {
-                                Text(leaderResults[rank].name_display_first_last)
-                                    .font(.system(.headline))
-                                Text(leaderResults[rank].team_name)
-                                    .font(.system(.footnote))
-                            } //: VSTACK
+                            ZStack(alignment: .leading) {
+                                VStack(alignment: .leading) {
+                                    Text(leaderResults[rank].name_display_first_last)
+                                        .font(.system(.headline))
+                                    Text(leaderResults[rank].team_name)
+                                        .font(.system(.footnote))
+                                } //: VSTACK
+                                
+                                NavigationLink(destination: PlayerView(player: Player(position: leaderResults[rank].pos, name_display_first_last: leaderResults[rank].name_display_first_last, name_display_roster: leaderResults[rank].name_display_roster, team_full: leaderResults[rank].team_name, player_id: leaderResults[rank].player_id))) {
+                                    EmptyView()
+                                }
+                            } //: ZSTACK
                             
                             Spacer()
                             
