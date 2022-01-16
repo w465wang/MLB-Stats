@@ -10,19 +10,22 @@ import SwiftUI
 struct LeaderView: View {
     // MARK: - PROPERTIES
     
-    @AppStorage("leaderYear", store: .standard) var leaderYear = "2021"
-    @AppStorage("leaderStat", store: .standard) var leaderStat = "hr"
+    @AppStorage("leaderYear", store: .standard) private var leaderYear = "2021"
+    @AppStorage("leaderStat", store: .standard) private var leaderStat = "HR"
+    
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var leaderResults: [Leader] = []
     @State private var leaderResultsDict: [String: [String]] = ["":[]]
-    private var stats = ["hr", "tb", "avg", "slg", "ops", "g", "tpa", "h", "obp", "r", "ab"]
+    private var stats = ["G", "PA", "AB", "R", "H", "HR", "BA", "OBP", "SLG", "OPS", "TB"]
+    private var statsDict = ["G":"g", "PA":"tpa", "AB":"ab", "R":"r", "H":"h", "HR":"hr", "BA":"avg", "OBP":"obp", "SLG":"slg", "OPS":"ops", "TB":"tb"]
     
     // MARK: - FUNCTIONS
     
     private func leaderTask() {
         Task {
             do {
-                let results = try await getLeagueLeaders(year: leaderYear, stat: leaderStat)
+                let results = try await getLeagueLeaders(year: leaderYear, stat: statsDict[leaderStat]!)
                 
                 var tempDict: [String: [String]] = ["":[]]
                 
@@ -31,17 +34,17 @@ struct LeaderView: View {
                 }
                 
                 for rank in 0..<results.count {
-                    tempDict["hr"]!.append(results[rank].hr)
-                    tempDict["tb"]!.append(results[rank].tb)
-                    tempDict["avg"]!.append(results[rank].avg)
-                    tempDict["slg"]!.append(results[rank].slg)
-                    tempDict["ops"]!.append(results[rank].ops)
-                    tempDict["g"]!.append(results[rank].g)
-                    tempDict["tpa"]!.append(results[rank].tpa)
-                    tempDict["h"]!.append(results[rank].h)
-                    tempDict["obp"]!.append(results[rank].obp)
-                    tempDict["r"]!.append(results[rank].r)
-                    tempDict["ab"]!.append(results[rank].ab)
+                    tempDict["HR"]!.append(results[rank].hr)
+                    tempDict["TB"]!.append(results[rank].tb)
+                    tempDict["BA"]!.append(results[rank].avg)
+                    tempDict["SLG"]!.append(results[rank].slg)
+                    tempDict["OPS"]!.append(results[rank].ops)
+                    tempDict["G"]!.append(results[rank].g)
+                    tempDict["PA"]!.append(results[rank].tpa)
+                    tempDict["H"]!.append(results[rank].h)
+                    tempDict["OBP"]!.append(results[rank].obp)
+                    tempDict["R"]!.append(results[rank].r)
+                    tempDict["AB"]!.append(results[rank].ab)
                 }
                 
                 leaderResultsDict = tempDict
@@ -98,7 +101,7 @@ struct LeaderView: View {
                             Text($0)
                         }
                     }
-                    .accentColor(nil)
+                    .accentColor(colorScheme == .dark ? .white : .black)
                     .padding()
                     .background(
                         Color(.secondarySystemBackground)
