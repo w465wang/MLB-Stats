@@ -21,20 +21,6 @@ struct PlayerView: View {
     
     // MARK: - FUNCTIONS
     
-    private func updateCategoryStats() {
-        categoryStats["G"] = self.hittingStats[0].g
-        categoryStats["PA"] = self.hittingStats[0].tpa
-        categoryStats["AB"] = self.hittingStats[0].ab
-        categoryStats["R"] = self.hittingStats[0].r
-        categoryStats["H"] = self.hittingStats[0].h
-        categoryStats["HR"] = self.hittingStats[0].hr
-        categoryStats["BA"] = self.hittingStats[0].avg
-        categoryStats["OBP"] = self.hittingStats[0].obp
-        categoryStats["SLG"] = self.hittingStats[0].slg
-        categoryStats["OPS"] = self.hittingStats[0].ops
-        categoryStats["TB"] = self.hittingStats[0].tb
-    }
-    
     private func checkFavourites() {
         let fetchRequest = Item.fetchRequest()
         fetchRequest.predicate = NSPredicate(
