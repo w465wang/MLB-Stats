@@ -17,6 +17,8 @@ struct LeaderView: View {
     
     @State private var leaderResults: [Leader] = []
     @State private var leaderResultsDict: [String: [String]] = ["":[]]
+    @State private var yearAlert: Bool = false
+    
     private var stats = ["G", "PA", "AB", "R", "H", "HR", "BA", "OBP", "SLG", "OPS", "TB"]
     private var statsDict = ["G":"g", "PA":"tpa", "AB":"ab", "R":"r", "H":"h", "HR":"hr", "BA":"avg", "OBP":"obp", "SLG":"slg", "OPS":"ops", "TB":"tb"]
     
@@ -91,9 +93,15 @@ struct LeaderView: View {
                                 "0123456789".contains($0)
                             }
                             
-                            if filtered == leaderYear {
+                            if filtered == leaderYear && leaderYear >= "1876" && leaderYear <= "2021" {
                                 leaderTask()
+                            } else {
+                                yearAlert.toggle()
                             }
+                        }
+                        .alert(isPresented: $yearAlert) {
+                            Alert(title: Text("Invalid year!"),
+                                  message: Text("Please enter a year between 1876 and 2021."))
                         }
                     
                     Picker(leaderStat, selection: $leaderStat) {
