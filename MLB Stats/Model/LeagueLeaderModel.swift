@@ -26,11 +26,18 @@ struct LeagueLeaderQueryResult: Codable {
 struct Leader: Codable, Hashable {
     var name_display_first_last: String
     var pos: String
+    var tb: String
     var avg: String
     var slg: String
     var ops: String
     var player_id: String
     var hr: String
     var name_display_roster: String
+    var g: String
     var team_name: String
+    var tpa: String
+    var h: String
+    var obp: String
+    var r: String
+    var ab: String
 }

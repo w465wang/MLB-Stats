@@ -14,6 +14,8 @@ struct LeaderView: View {
     @AppStorage("leaderStat", store: .standard) var leaderStat = "hr"
     
     @State private var leaderResults: [Leader] = []
+    @State private var leaderResultsDict: [String: [String]] = ["":[]]
+    private var stats = ["hr", "tb", "avg", "slg", "ops", "g", "tpa", "h", "obp", "r", "ab"]
     
     // MARK: - FUNCTIONS
     
@@ -21,6 +23,28 @@ struct LeaderView: View {
         Task {
             do {
                 let results = try await getLeagueLeaders(year: leaderYear, stat: leaderStat)
+                
+                var tempDict: [String: [String]] = ["":[]]
+                
+                for stat in stats {
+                    tempDict[stat] = []
+                }
+                
+                for rank in 0..<results.count {
+                    tempDict["hr"]!.append(results[rank].hr)
+                    tempDict["tb"]!.append(results[rank].tb)
+                    tempDict["avg"]!.append(results[rank].avg)
+                    tempDict["slg"]!.append(results[rank].slg)
+                    tempDict["ops"]!.append(results[rank].ops)
+                    tempDict["g"]!.append(results[rank].g)
+                    tempDict["tpa"]!.append(results[rank].tpa)
+                    tempDict["h"]!.append(results[rank].h)
+                    tempDict["obp"]!.append(results[rank].obp)
+                    tempDict["r"]!.append(results[rank].r)
+                    tempDict["ab"]!.append(results[rank].ab)
+                }
+                
+                leaderResultsDict = tempDict
                 leaderResults = results
             } catch {
                 print("Error", error)
@@ -58,7 +82,7 @@ struct LeaderView: View {
                             Color(.secondarySystemBackground)
                         )
                         .cornerRadius(10)
-                        .frame(maxWidth: 640)
+                        .clipped()
                         .onSubmit {
                             let filtered = leaderYear.filter {
                                 "0123456789".contains($0)
@@ -68,6 +92,22 @@ struct LeaderView: View {
                                 leaderTask()
                             }
                         }
+                    
+                    Picker(leaderStat, selection: $leaderStat) {
+                        ForEach(stats, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .accentColor(nil)
+                    .padding()
+                    .background(
+                        Color(.secondarySystemBackground)
+                    )
+                    .cornerRadius(10)
+                    .clipped()
+                    .onChange(of: leaderStat) { _ in
+                        leaderTask()
+                    }
                 } //: HSTACK
                 .padding(.horizontal, 15)
                 
@@ -92,7 +132,7 @@ struct LeaderView: View {
                             
                             Spacer()
                             
-                            Text(leaderResults[rank].hr)
+                            Text(leaderResultsDict[leaderStat]![rank])
                                 .font(.system(.headline))
                         } //: HSTACK
                         .padding(.horizontal, 10)
